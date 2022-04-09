@@ -14,3 +14,14 @@ a {
 * {
   box-sizing: border-box;
 }
+
+table,
+td {
+  margin: 20px auto;
+  border: outset 1px blue;
+  color: red;
+  padding: 2px;
+}
+td {
+  padding: 3px 10px;
+}

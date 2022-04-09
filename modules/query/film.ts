@@ -1,4 +1,5 @@
 export interface Film {
+  id: number;
   title: string;
   rentalRate: number;
   rating: string;
@@ -8,6 +9,7 @@ export interface Film {
 
 export const film = (data: any): Film => {
   return {
+    id: data.film_id,
     title: data.title,
     rentalRate: data.rental_rate,
     rating: data.rating,

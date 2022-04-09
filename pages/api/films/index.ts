@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connect } from "../../../modules/mysql";
 import { executeQuery, MAX_ROW } from "../../../modules/query";
