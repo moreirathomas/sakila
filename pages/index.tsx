@@ -1,20 +1,15 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { Table } from "../components";
+import { FilmsContext } from "../contexts/FilmsContext";
 
 const Home: NextPage = () => {
-  const [films, setFilms] = useState([]);
-  useEffect(() => {
-    fetch("api/films")
-      .then((res) => res.json())
-      .then((data) => setFilms(data.films));
-  }, []);
-
+  const { state } = useContext(FilmsContext);
   return (
-    <div>
-      <main>{films.length > 0 && <Table films={films} />}</main>
-    </div>
+    <main>
+      <Table films={state} />
+    </main>
   );
 };
 

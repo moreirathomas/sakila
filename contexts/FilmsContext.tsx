@@ -1,6 +1,12 @@
-import { createContext, Dispatch, FunctionComponent, useState } from "react";
-import { OrderBy, Page } from "../modules/query";
+import {
+  createContext,
+  Dispatch,
+  FunctionComponent,
+  useEffect,
+  useState,
+} from "react";
 
+import { OrderBy, Page } from "../modules/query";
 import { Film } from "../modules/query/film";
 
 const initialState: Film[] = [];
@@ -44,6 +50,15 @@ async function reducer(state: Film[], action: FilmAction): Promise<Film[]> {
 
 export const FilmsProvider: FunctionComponent = (props) => {
   const [state, dispatch] = useAsyncReducer(reducer, initialState);
+
+  useEffect(() => {
+    dispatch({
+      type: "query",
+      page: { cursor: 0, limit: 10 },
+      orderBy: { by: "title", order: "asc" },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <FilmsContext.Provider value={{ state, dispatch }}>
