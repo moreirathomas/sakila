@@ -1,7 +1,8 @@
 import { FunctionComponent } from "react";
 
 import { Film } from "../modules/query/film";
-import { Row } from "./Row";
+import { Row } from "./DisplayRow";
+import { Headers } from "./DisplayHeaders";
 
 interface Props {
   films: Film[];
@@ -9,18 +10,10 @@ interface Props {
 
 const headers = ["Title", "Category", "Rating", "Rental rate", "Times rented"];
 
-export const Table: FunctionComponent<Props> = ({ films }) => {
+export const Display: FunctionComponent<Props> = ({ films }) => {
   return (
     <table>
-      <thead>
-        <tr>
-          {headers.map((header, i) => (
-            <th key={i} scope="col">
-              {header}
-            </th>
-          ))}
-        </tr>
-      </thead>
+      <Headers headers={headers} />
 
       <tbody>
         {films.map((film) => (

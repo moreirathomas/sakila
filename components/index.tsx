@@ -1,1 +1,2 @@
-export * from "./Table";
+export * from "./Display";
+export * from "./Controls";
