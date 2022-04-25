@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
 
-import { Film } from "../modules/query/film";
-import { Row } from "./DisplayRow";
-import { Headers } from "./DisplayHeaders";
+import { Film } from "../../modules/film";
+import { Row } from "./Row";
+import { Headers } from "./Headers";
 
 interface Props {
   films: Film[];

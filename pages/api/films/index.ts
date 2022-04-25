@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connect } from "../../../modules/mysql";
-import { executeQuery, MAX_ROW } from "../../../modules/query";
+import { fetchFilms, MAX_ROW } from "../../../modules/query";
 import { parseQueryParams } from "./params";
 
 type Data = {
@@ -17,7 +17,7 @@ export default async function handler(
 
   const conn = connect();
 
-  const data = await executeQuery(conn, params);
+  const data = await fetchFilms(conn, params);
 
   if (data instanceof Error) {
     res.status(500).json({ error: data.message });

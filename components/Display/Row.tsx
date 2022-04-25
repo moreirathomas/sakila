@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 
-import { Film } from "../modules/query/film";
+import { Film } from "../../modules/film";
 
 interface Props {
   film: Film;

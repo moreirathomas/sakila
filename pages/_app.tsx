@@ -7,7 +7,7 @@ import { FilmsProvider } from "../contexts/FilmsContext";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <FilmsProvider>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </FilmsProvider>
   );
 }

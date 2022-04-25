@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext, useState } from "react";
 
-import { OrderBy, Page } from "../modules/query";
+import { OrderBy, Page } from "../../modules/query";
 import { Button } from "./Button";
 import { QueryParamNumber, QueryParamString } from "./QueryParam";
 

@@ -6,8 +6,8 @@ import {
   useState,
 } from "react";
 
+import type { Film } from "../modules/film";
 import { OrderBy, Page } from "../modules/query";
-import { Film } from "../modules/query/film";
 
 const initialState: Film[] = [];
 

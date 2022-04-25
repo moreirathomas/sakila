@@ -1,14 +1,19 @@
-import { Film, film } from "./film";
+import { Film, film } from "../film";
 import { MAX_ROW } from "./constants";
 import { statement } from "./statement";
+
+export type Page = {
+  cursor: number;
+  limit: number;
+};
 
 export type OrderBy = {
   by: "title" | "category" | "timesRented";
   order: "asc" | "desc";
 };
 
-export const whereClauseOf = (byField: OrderBy["by"]) => {
-  switch (byField) {
+const whereClauseOf = (field: OrderBy["by"]) => {
+  switch (field) {
     case "title":
       return "film.title";
     case "category":
@@ -18,17 +23,12 @@ export const whereClauseOf = (byField: OrderBy["by"]) => {
   }
 };
 
-export type Page = {
-  cursor: number;
-  limit: number;
-};
-
 interface Connection {
   query(sql: string, values?: any[]): Promise<any>;
   end(): Promise<void>;
 }
 
-export const executeQuery = async (
+export const fetchFilms = async (
   db: Connection,
   { page, orderBy }: { page: Page; orderBy: OrderBy }
 ): Promise<Film[] | Error> => {
@@ -39,12 +39,14 @@ export const executeQuery = async (
   }
 
   try {
-    const res: Film[] = await db.query(stmt, [
+    const res: unknown[] = await db.query(stmt, [
       page.cursor,
       whereClauseOf(orderBy.by),
       page.limit,
     ]);
+
     await db.end();
+
     return res.map((data) => film(data));
   } catch (error) {
     if (error instanceof Error) {

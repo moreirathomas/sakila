@@ -32,5 +32,10 @@ order by ?? ${params.direction}
 limit ?;
 `;
 
+/**
+ * Returns a SQL statement for querying films. The statement has 3 dynamic parameters,
+ * in this order: `cursor`, `field` to order by and `limit`.
+ * @param order internally defines the cursor operator and the direction.
+ */
 export const statement = (order: "asc" | "desc") =>
   templateStatement(params(order));
