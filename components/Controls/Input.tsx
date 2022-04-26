@@ -6,38 +6,29 @@ interface Props<T extends number | string> {
   setter: Dispatch<SetStateAction<T>>;
 }
 
-export const QueryParamString: FunctionComponent<Props<string>> = ({
-  value,
-  label,
-  setter,
-}) => {
-  return (
-    <div>
-      <label htmlFor={label}>{label}</label>
-      <input
-        name={label}
-        value={value}
-        onChange={(event) => setter(event.target.value)}
-        type="text"
-      />
-    </div>
-  );
-};
+interface PropsNumber {
+  min: number;
+  max: number;
+}
 
-export const QueryParamNumber: FunctionComponent<Props<number>> = ({
+export const InputNumber: FunctionComponent<Props<number> & PropsNumber> = ({
   value,
   label,
   setter,
+  min,
+  max,
 }) => {
   return (
-    <div>
+    <>
       <label htmlFor={label}>{label}</label>
       <input
         name={label}
         value={value}
         onChange={(event) => setter(parseInt(event.target.value))}
         type="number"
+        min={min}
+        max={max}
       />
-    </div>
+    </>
   );
 };

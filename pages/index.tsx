@@ -14,8 +14,8 @@ const Home: NextPage = () => {
 
   return (
     <main>
-      <Display films={state} />
       <Controls action={queryFilms} />
+      <Display films={state} />
     </main>
   );
 };
