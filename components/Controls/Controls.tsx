@@ -1,7 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 
 import { OrderBy, Page, MAX_ROW } from "../../modules/query";
-import { Button } from "./Button";
 import { InputNumber } from "./Input";
 import { Select } from "./Select";
 
@@ -75,8 +74,6 @@ export const Controls: FunctionComponent<Props> = ({ action }) => {
         min={1}
         max={MAX_ROW}
       ></InputNumber>
-
-      <Button action={() => handleQuery()}>Refresh</Button>
     </form>
   );
 };
