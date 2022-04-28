@@ -1,17 +1,13 @@
 import mysql from "serverless-mysql";
 
-// FIXME do not commit credentials!
-// Although this password is shared between students,
-// so I am not bothering with security concerns here.
-
 export const connect = () => {
   return mysql({
     config: {
-      host: "163.172.130.142",
-      user: "etudiant",
-      password: "CrERP29qwMNvcbnAMgLzW9CwuTC5eJHn",
-      database: "sakila",
-      port: 3310,
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      port: parseInt(process.env.DB_PORT as string),
     },
   });
 };
