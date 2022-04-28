@@ -14,6 +14,8 @@ const Home: NextPage = () => {
 
   return (
     <main>
+      <h1>Sekila</h1>
+      <h2>Movie rental explorer</h2>
       <Controls action={queryFilms} />
       <Display films={state} />
     </main>
