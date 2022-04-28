@@ -1,5 +1,5 @@
 import { NextApiRequest } from "next";
-import { Page, OrderBy } from "../../../modules/query";
+import { Page, OrderBy, MAX_ROW } from "../../../modules/query";
 
 type QueryParams = {
   page: Page;
@@ -7,15 +7,15 @@ type QueryParams = {
 };
 
 export const parseQueryParams = (req: NextApiRequest): QueryParams => {
-  const { cursor, limit, order, by } = req.query;
+  const { offset, limit, order, by } = req.query;
 
   return {
-    page: parsePage(cursor, limit),
+    page: parsePage(limit, offset),
     orderBy: parseOrderBy(order, by),
   };
 };
 
-const DEFAULT_PAGE_CURSOR = 0;
+const DEFAULT_PAGE_OFFSET = 0;
 const DEFAULT_PAGE_LIMIT = 10;
 
 /**
@@ -23,14 +23,22 @@ const DEFAULT_PAGE_LIMIT = 10;
  */
 type QueryKey = string | string[];
 
-const toPositiveInt = (val: QueryKey, defaultVal: number): number => {
-  const i = parseInt(val as string, 10);
-  return !isNaN(i) && i > 0 ? i : defaultVal;
-};
+const minMaxParser =
+  (min: number, max: number) =>
+  (val: QueryKey, fallback: number): number => {
+    const i = parseInt(val as string, 10);
+    if (isNaN(i) || i < min || i > max) {
+      return fallback;
+    }
+    return i;
+  };
 
-const parsePage = (cursor: QueryKey, limit: QueryKey): Page => ({
-  cursor: toPositiveInt(cursor, DEFAULT_PAGE_CURSOR),
-  limit: toPositiveInt(limit, DEFAULT_PAGE_LIMIT),
+const parseLimit = minMaxParser(1, MAX_ROW);
+const parseOffset = minMaxParser(1, MAX_ROW);
+
+const parsePage = (limit: QueryKey, offset: QueryKey): Page => ({
+  limit: parseLimit(limit, DEFAULT_PAGE_LIMIT),
+  offset: parseOffset(offset, DEFAULT_PAGE_OFFSET),
 });
 
 const isString = (val: unknown): val is string => typeof val === "string";

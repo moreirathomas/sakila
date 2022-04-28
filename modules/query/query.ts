@@ -1,10 +1,9 @@
 import { Film, film } from "../film";
-import { MAX_ROW } from "./constants";
 import { statement } from "./statement";
 
 export type Page = {
-  cursor: number;
   limit: number;
+  offset: number;
 };
 
 export type OrderBy = {
@@ -34,15 +33,11 @@ export const fetchFilms = async (
 ): Promise<Film[] | Error> => {
   const stmt = statement(orderBy.order);
 
-  if (orderBy.order === "desc") {
-    page.cursor = MAX_ROW - page.cursor;
-  }
-
   try {
     const res: unknown[] = await db.query(stmt, [
-      page.cursor,
       whereClauseOf(orderBy.by),
       page.limit,
+      page.offset,
     ]);
 
     await db.end();

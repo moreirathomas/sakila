@@ -38,7 +38,7 @@ async function reducer(state: Film[], action: FilmAction): Promise<Film[]> {
   switch (action.type) {
     case "query":
       const res = await fetch(
-        `api/films?cursor=${action.page.cursor}&limit=${action.page.limit}&order=${action.orderBy.order}&by=${action.orderBy.by}`
+        `api/films?limit=${action.page.limit}&offset=${action.page.offset}&order=${action.orderBy.order}&by=${action.orderBy.by}`
       );
       const data = await res.json();
       // TODO handle error
@@ -54,7 +54,7 @@ export const FilmsProvider: FunctionComponent = (props) => {
   useEffect(() => {
     dispatch({
       type: "query",
-      page: { cursor: 0, limit: 10 },
+      page: { limit: 10, offset: 0 },
       orderBy: { by: "title", order: "asc" },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

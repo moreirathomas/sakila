@@ -19,8 +19,8 @@ const orderOptions = [
   { value: "desc", label: "Descendant" },
 ];
 
-const cursor = (limit: number, page: number): number => {
-  return (page - 1) * limit; // limit is zero indexed
+const offset = (limit: number, page: number): number => {
+  return (page - 1) * limit;
 };
 
 const pages = (limit: number): number => {
@@ -35,7 +35,7 @@ export const Controls: FunctionComponent<Props> = ({ action }) => {
   const [limit, setLimit] = useState(10);
 
   const handleQuery = () => {
-    action({ by, order } as OrderBy, { cursor: cursor(limit, page), limit });
+    action({ by, order } as OrderBy, { limit, offset: offset(limit, page) });
   };
 
   useEffect(() => {
